@@ -85,8 +85,7 @@ const createInitialData = (eventId: string): EventData => ({
   eventId,
   operation: 'zonesDefinition',
   data: {
-    zones: {
-      "zone#AA#GATE": {
+    zones: {      "zone#AA#GATE": {
         zoneId: "zone#AA#GATE",
         name: "Main Gate",
         type: "GATE",
@@ -97,11 +96,11 @@ const createInitialData = (eventId: string): EventData => ({
           BACKSTAGE: true,
           GENERAL: true,
           STAGE: true,
+          COMPROMIS: true,
           VIP: true
         },
         checkPoints: {} // Sin checkpoints - usuario debe crearlos
-      },
-      "zone#00#VENUE": {
+      },      "zone#00#VENUE": {
         zoneId: "zone#00#VENUE",
         name: "Main Venue",
         type: "VENUE",
@@ -112,6 +111,7 @@ const createInitialData = (eventId: string): EventData => ({
           BACKSTAGE: true,
           GENERAL: true,
           STAGE: true,
+          COMPROMIS: true,
           VIP: true
         },
         checkPoints: {} // Sin checkpoints - usuario debe crearlos
@@ -135,6 +135,7 @@ interface AccessTypes {
   GENERAL: boolean;
   BACKSTAGE: boolean;
   STAGE: boolean;
+  COMPROMIS: boolean;
   VIP: boolean;
 }
 
@@ -200,9 +201,71 @@ const operation = 'zonesDefinition';
 // Badges de tipos de acceso - mismo componente que en la versión con datos
 const AccessTypeBadges = ({ accessTypes }: { accessTypes: Zone['accessTypes'] }) => (
   <HorizontalLayout theme="spacing-xs">
-    {accessTypes.BACKSTAGE && <span>COMPROMIS</span>}
-    {accessTypes.GENERAL && <span>GENERAL</span>}
-    {accessTypes.VIP && <span>VIP</span>}
+    {accessTypes.GENERAL && (
+      <Chip 
+        label="GENERAL"
+        size="small"
+        variant="filled"
+        sx={{ 
+          backgroundColor: '#ff9800', 
+          color: 'white',
+          fontSize: '0.7rem',
+          fontWeight: 600 
+        }}
+      />
+    )}
+    {accessTypes.BACKSTAGE && (
+      <Chip 
+        label="BACKSTAGE"
+        size="small"
+        variant="filled"
+        sx={{ 
+          backgroundColor: '#4caf50', 
+          color: 'white',
+          fontSize: '0.7rem',
+          fontWeight: 600 
+        }}
+      />
+    )}
+    {accessTypes.STAGE && (
+      <Chip 
+        label="STAGE"
+        size="small"
+        variant="filled"
+        sx={{ 
+          backgroundColor: '#9c27b0', 
+          color: 'white',
+          fontSize: '0.7rem',
+          fontWeight: 600 
+        }}
+      />
+    )}
+    {accessTypes.COMPROMIS && (
+      <Chip 
+        label="COMPROMIS"
+        size="small"
+        variant="filled"
+        sx={{ 
+          backgroundColor: '#2196f3', 
+          color: 'white',
+          fontSize: '0.7rem',
+          fontWeight: 600 
+        }}
+      />
+    )}
+    {accessTypes.VIP && (
+      <Chip 
+        label="VIP"
+        size="small"
+        variant="filled"
+        sx={{ 
+          backgroundColor: '#f44336', 
+          color: 'white',
+          fontSize: '0.7rem',
+          fontWeight: 600 
+        }}
+      />
+    )}
   </HorizontalLayout>
 );
 
@@ -1030,22 +1093,8 @@ const ZonesManagementDefinitivo: React.FC = () => {
                           color="default"
                           sx={{ fontSize: '0.75rem' }}
                         />
-                        {gate.currentOccupancy !== undefined && (
-                          <Chip 
-                            label={`Occupancy: ${gate.currentOccupancy}/${gate.maxCapacity}`}
-                            size="small"
-                            variant="filled"
-                            color={getOccupancyColor(gate.currentOccupancy, gate.maxCapacity)}
-                            sx={{ fontSize: '0.75rem', fontWeight: 600 }}
-                          />
-                        )}
-                        <Chip 
-                          label={`${((gate.currentOccupancy || 0) / gate.maxCapacity * 100).toFixed(0)}%`}
-                          size="small"
-                          variant="outlined"
-                          color="info"
-                          sx={{ fontSize: '0.75rem' }}
-                        />
+                       
+                        
                         <Chip 
                           label="Gate"
                           size="small"

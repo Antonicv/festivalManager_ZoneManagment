@@ -32,6 +32,7 @@ interface AccessTypes {
   GENERAL: boolean;
   BACKSTAGE: boolean;
   STAGE: boolean;
+  COMPROMIS: boolean;
   VIP: boolean;
 }
 
@@ -125,39 +126,39 @@ const Dialogs = ({
   const [gateName, setGateName] = useState('');
   const [gateDeviceId, setGateDeviceId] = useState('');
   const [gateDeviceRole, setGateDeviceRole] = useState('');
-
   // Zone Dialog State
   const [zoneName, setZoneName] = useState('');
   const [zoneMaxCapacity, setZoneMaxCapacity] = useState(100);
   const [zoneGeneralAccess, setZoneGeneralAccess] = useState(false);
   const [zoneBackstageAccess, setZoneBackstageAccess] = useState(false);
   const [zoneStageAccess, setZoneStageAccess] = useState(false);
+  const [zoneCompromisAccess, setZoneCompromisAccess] = useState(false);
 
   // Checkpoint Dialog State
   const [checkpointName, setCheckpointName] = useState('');
   const [checkpointType, setCheckpointType] = useState('IN');
   const [checkpointDeviceId, setCheckpointDeviceId] = useState('');
   const [checkpointDeviceRole, setCheckpointDeviceRole] = useState('');
-
   // Subzone Dialog State
   const [subzoneName, setSubzoneName] = useState('');
   const [subzoneMaxCapacity, setSubzoneMaxCapacity] = useState(100);
   const [subzoneGeneralAccess, setSubzoneGeneralAccess] = useState(false);
   const [subzoneBackstageAccess, setSubzoneBackstageAccess] = useState(false);
   const [subzoneStageAccess, setSubzoneStageAccess] = useState(false);
+  const [subzoneCompromisAccess, setSubzoneCompromisAccess] = useState(false);
 
   const resetGateForm = () => {
     setGateName('');
     setGateDeviceId('');
     setGateDeviceRole('');
   };
-
   const resetZoneForm = () => {
     setZoneName('');
     setZoneMaxCapacity(100);
     setZoneGeneralAccess(false);
     setZoneBackstageAccess(false);
     setZoneStageAccess(false);
+    setZoneCompromisAccess(false);
   };
 
   const resetCheckpointForm = () => {
@@ -166,13 +167,13 @@ const Dialogs = ({
     setCheckpointDeviceId('');
     setCheckpointDeviceRole('');
   };
-
   const resetSubzoneForm = () => {
     setSubzoneName('');
     setSubzoneMaxCapacity(100);
     setSubzoneGeneralAccess(false);
     setSubzoneBackstageAccess(false);
     setSubzoneStageAccess(false);
+    setSubzoneCompromisAccess(false);
   };
 
   const handleAddGate = () => {
@@ -182,11 +183,11 @@ const Dialogs = ({
       type: 'GATE',
       parentZoneId: null,
       maxCapacity: 1000,
-      currentOccupancy: 0,
-      accessTypes: {
+      currentOccupancy: 0,      accessTypes: {
         GENERAL: true,
         BACKSTAGE: true,
         STAGE: true,
+        COMPROMIS: true,
         VIP: true,
       },
       checkPoints: {
@@ -212,7 +213,6 @@ const Dialogs = ({
     setGateDialogOpen(false);
     resetGateForm();
   };
-
   const handleAddZone = () => {
     const newZone: Zone = {
       zoneId: `zone#${Date.now()}`,
@@ -226,6 +226,7 @@ const Dialogs = ({
         GENERAL: zoneGeneralAccess,
         BACKSTAGE: zoneBackstageAccess,
         STAGE: zoneStageAccess,
+        COMPROMIS: zoneCompromisAccess,
         VIP: false,
       },
     };
@@ -240,7 +241,6 @@ const Dialogs = ({
     setZoneDialogOpen(false);
     resetZoneForm();
   };
-
   const handleAddVenue = () => {
     const newVenue: Zone = {
       zoneId: `venue#${Date.now()}`,
@@ -254,6 +254,7 @@ const Dialogs = ({
         GENERAL: zoneGeneralAccess,
         BACKSTAGE: zoneBackstageAccess,
         STAGE: zoneStageAccess,
+        COMPROMIS: zoneCompromisAccess,
         VIP: false,
       },
     };
@@ -308,12 +309,12 @@ const Dialogs = ({
       parentZoneId: selectedZone.zoneId,
       parentZoneName: selectedZone.name,
       maxCapacity: subzoneMaxCapacity,
-      currentOccupancy: 0,
-      checkPoints: {},
+      currentOccupancy: 0,      checkPoints: {},
       accessTypes: {
         GENERAL: subzoneGeneralAccess,
         BACKSTAGE: subzoneBackstageAccess,
         STAGE: subzoneStageAccess,
+        COMPROMIS: subzoneCompromisAccess,
         VIP: false,
       },
     };
@@ -404,11 +405,15 @@ const Dialogs = ({
                   label="BACKSTAGE"
                   checked={zoneBackstageAccess}
                   onCheckedChanged={(e: any) => setZoneBackstageAccess(e.detail.value)}
-                />
-                <Checkbox
+                />                <Checkbox
                   label="STAGE"
                   checked={zoneStageAccess}
                   onCheckedChanged={(e: any) => setZoneStageAccess(e.detail.value)}
+                />
+                <Checkbox
+                  label="COMPROMIS"
+                  checked={zoneCompromisAccess}
+                  onCheckedChanged={(e: any) => setZoneCompromisAccess(e.detail.value)}
                 />
               </div>
             </div>
@@ -456,11 +461,15 @@ const Dialogs = ({
                   label="BACKSTAGE"
                   checked={zoneBackstageAccess}
                   onCheckedChanged={(e: any) => setZoneBackstageAccess(e.detail.value)}
-                />
-                <Checkbox
+                />                <Checkbox
                   label="STAGE"
                   checked={zoneStageAccess}
                   onCheckedChanged={(e: any) => setZoneStageAccess(e.detail.value)}
+                />
+                <Checkbox
+                  label="COMPROMIS"
+                  checked={zoneCompromisAccess}
+                  onCheckedChanged={(e: any) => setZoneCompromisAccess(e.detail.value)}
                 />
               </div>
             </div>
@@ -557,11 +566,15 @@ const Dialogs = ({
                   label="BACKSTAGE"
                   checked={subzoneBackstageAccess}
                   onCheckedChanged={(e: any) => setSubzoneBackstageAccess(e.detail.value)}
-                />
-                <Checkbox
+                />                <Checkbox
                   label="STAGE"
                   checked={subzoneStageAccess}
                   onCheckedChanged={(e: any) => setSubzoneStageAccess(e.detail.value)}
+                />
+                <Checkbox
+                  label="COMPROMIS"
+                  checked={subzoneCompromisAccess}
+                  onCheckedChanged={(e: any) => setSubzoneCompromisAccess(e.detail.value)}
                 />
               </div>
             </div>
