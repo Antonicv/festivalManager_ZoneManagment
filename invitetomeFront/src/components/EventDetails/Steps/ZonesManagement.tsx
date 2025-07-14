@@ -792,7 +792,7 @@ const ZonesManagementDefinitivo: React.FC = () => {
             </Typography>
             <Box display="flex" flexWrap="wrap" gap={1} mb={1}>
               <Chip
-                icon={<LocationOn />}
+                icon={<MeetingRoom />}
                 label={`${summary.totalGates} Gates`}
                 size="small"
                 color="primary"
@@ -801,7 +801,7 @@ const ZonesManagementDefinitivo: React.FC = () => {
                 onClick={() => setSummaryView(summaryView === 'gates' ? 'overview' : 'gates')}
               />
               <Chip
-                icon={<MeetingRoom />}
+                icon={<LocationOn />}
                 label={`${summary.totalVenues} Venues`}
                 size="small"
                 color="secondary"
