@@ -332,17 +332,10 @@ const ZoneSection = ({
     <div style={{ padding: '16px', border: '1px solid #e0e0e0', borderRadius: '8px', marginBottom: '8px' }}>
       <HorizontalLayout style={{ alignItems: 'center', gap: '16px', marginBottom: '16px' }}>
         <div>
-          <h4 style={{ margin: 0, color: isSubzone ? '#6c757d' : '#495057' }}>
-            {zone.name}
-            {isSubzone && parentZoneName && (
-              <span style={{ fontSize: '12px', color: '#adb5bd', marginLeft: '8px' }}>
-                (Subzone of {parentZoneName})
-              </span>
-            )}
-          </h4>
+          
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginTop: '4px' }}>
             <span style={{ fontSize: '12px', color: '#6c757d' }}>
-              Type: {zone.type}
+              
             </span>
           </div>
         </div>
