@@ -199,7 +199,7 @@ const operation = 'zonesDefinition';
 // ========== COMPONENTES UI REUTILIZABLES ==========
 
 // Badges de tipos de acceso - mismo componente que en la versión con datos
-const AccessTypeBadges = ({ accessTypes }: { accessTypes: Zone['accessTypes'] }) => (
+const AccessTypeBadges = ({ accessTypes }: { accessTypes: AccessTypes }) => (
   <HorizontalLayout theme="spacing-xs">
     {accessTypes.GENERAL && (
       <Chip 
@@ -629,25 +629,7 @@ const ZonesManagementDefinitivo: React.FC = () => {
 
   // ========== HANDLERS DE UI Y NAVEGACIÓN ==========
   
-  // Función helper para determinar color basado en % de ocupación
-  const getOccupancyColor = (current: number = 0, max: number): 'success' | 'warning' | 'error' | 'info' | 'default' => {
-    // Sin datos o capacidad 0
-    if (max === 0 || current === undefined) return 'info';
-    
-    const percentage = (current / max) * 100;
-    
-    // 0% ocupación
-    if (percentage === 0) return 'info';
-    
-    // Rangos de ocupación
-    if (percentage < 50) return 'success';   // Verde - Baja ocupación
-    if (percentage < 80) return 'warning';   // Naranja - Media ocupación  
-    if (percentage < 95) return 'error';     // Rojo - Alta ocupación
-    
-    // > 95% ocupación crítica
-    return 'default';                        // Negro - Ocupación crítica
-  };
-  
+ 
   // Misma lógica de handlers que el componente original
   
   const handleAddCheckpoint = (zone: ZoneType) => {
@@ -1095,13 +1077,7 @@ const ZonesManagementDefinitivo: React.FC = () => {
                         />
                        
                         
-                        <Chip 
-                          label="Gate"
-                          size="small"
-                          variant="outlined"
-                          color="primary"
-                          sx={{ fontSize: '0.75rem' }}
-                        />
+                       
                       </div>
                     </HorizontalLayout>
                   </AccordionSummary>
@@ -1228,26 +1204,8 @@ const ZonesManagementDefinitivo: React.FC = () => {
                           color="default"
                           sx={{ fontSize: '0.75rem' }}
                         />
-                        <Chip 
-                          label={`Occupancy: ${venue.currentOccupancy || 0}/${venue.maxCapacity}`}
-                          size="small"
-                          variant="filled"
-                          color={getOccupancyColor(venue.currentOccupancy, venue.maxCapacity)}
-                          sx={{ fontSize: '0.75rem', fontWeight: 600 }}
-                        />
-                        <Chip 
-                          label={`${((venue.currentOccupancy || 0) / venue.maxCapacity * 100).toFixed(0)}%`}
-                          size="small"
-                          variant="outlined"
-                          color="info"
-                          sx={{ fontSize: '0.75rem' }}
-                        />                        <Chip 
-                          label="Venue"
-                          size="small"
-                          variant="outlined"
-                          color="info"
-                          sx={{ fontSize: '0.75rem' }}
-                        />
+                       
+                       
                       </div>
                     </HorizontalLayout>
                   </AccordionSummary>
@@ -1450,27 +1408,7 @@ const ZonesManagementDefinitivo: React.FC = () => {
                           color="default"
                           sx={{ fontSize: '0.75rem' }}
                         />
-                        <Chip 
-                          label={`Occupancy: ${zone.currentOccupancy || 0}/${zone.maxCapacity}`}
-                          size="small"
-                          variant="filled"
-                          color={getOccupancyColor(zone.currentOccupancy, zone.maxCapacity)}
-                          sx={{ fontSize: '0.75rem', fontWeight: 600 }}
-                        />
-                        <Chip 
-                          label={`${((zone.currentOccupancy || 0) / zone.maxCapacity * 100).toFixed(0)}%`}
-                          size="small"
-                          variant="outlined"
-                          color="info"
-                          sx={{ fontSize: '0.75rem' }}
-                        />
-                        <Chip 
-                          label="Zone"
-                          size="small"
-                          variant="outlined"
-                          color="secondary"
-                          sx={{ fontSize: '0.75rem' }}
-                        />
+                      
                         <Button 
                           theme="secondary small"
                           onClick={(e) => {
