@@ -999,7 +999,10 @@ const ZonesManagementDefinitivo: React.FC = () => {
                         Tip:
                       </Typography>
                       <Typography variant="caption" color="text.secondary" sx={{ display: 'block', ml: 1 }}>
-                        Configure checkpoints for Gates and Venues according to your access control and people flow needs.
+                      - Configure checkpoints for Gates and Venues according to your access control and people flow needs.
+                       </Typography>
+                      <Typography variant="caption" color="text.secondary" sx={{ display: 'block', ml: 1 }}>
+                        - Click the Green dot to toggle between active and inactive Update Zone Policy.
                       </Typography>
                     </Box>
                   ) : null}
