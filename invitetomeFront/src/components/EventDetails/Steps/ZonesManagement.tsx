@@ -265,8 +265,37 @@ const AccessTypeBadges = ({ accessTypes }: { accessTypes: AccessTypes }) => (
           fontWeight: 600 
         }}
       />
-    )}
-  </HorizontalLayout>
+    )}  </HorizontalLayout>
+);
+
+// Componente del botón de Update Zone Policy
+const PolicyButton = ({ zoneId, isActive, onClick }: { 
+  zoneId: string; 
+  isActive: boolean; 
+  onClick: (zoneId: string, event: React.MouseEvent) => void; 
+}) => (
+  <Box
+    onClick={(event) => onClick(zoneId, event)}
+    sx={{
+      width: 16,
+      height: 16,
+      borderRadius: '50%',
+      backgroundColor: isActive ? '#4caf50' : '#f44336',
+      cursor: 'pointer',
+      transition: 'all 0.2s ease',
+      border: '2px solid #ffffff',
+      boxShadow: '0 1px 3px rgba(0,0,0,0.2)',
+      '&:hover': {
+        backgroundColor: isActive ? '#45a049' : '#d32f2f',
+        transform: 'scale(1.1)',
+        boxShadow: '0 2px 6px rgba(0,0,0,0.3)',
+      },
+      '&:active': {
+        transform: 'scale(0.95)',
+      },
+    }}
+    title={isActive ? 'Update Zone Policy: ACTIVE (Click to disable)' : 'Update Zone Policy: INACTIVE (Click to enable)'}
+  />
 );
 
 // Tabla de checkpoints - idéntica al componente original para consistencia
@@ -313,10 +342,13 @@ const CheckpointTable = ({
 // Componente de sección de zona con mejores estados vacíos y mensajes informativos
 const ZoneSection = ({
   zone,
- 
+  isSubzone = false,
+  parentZoneName = '',
   onAddCheckpoint,
   onDeleteCheckpoint,
   onUpdateCheckpoint,
+  updatePolicies = {},
+  onToggleUpdatePolicy,
 }: {
   zone: ZoneType;
   isSubzone?: boolean;
@@ -324,20 +356,31 @@ const ZoneSection = ({
   onAddCheckpoint: (zone: ZoneType) => void;
   onDeleteCheckpoint: (zone: ZoneType, checkpoint: Checkpoint) => void;
   onUpdateCheckpoint: (zone: ZoneType, checkpoint: Checkpoint) => void;
+  updatePolicies?: { [zoneId: string]: boolean };
+  onToggleUpdatePolicy?: (zoneId: string, event: React.MouseEvent) => void;
 }) => {
   const checkpoints = zone.checkPoints ? Object.values(zone.checkPoints) : [];
-
   return (
     <div style={{ padding: '16px', border: '1px solid #e0e0e0', borderRadius: '8px', marginBottom: '8px' }}>
       <HorizontalLayout style={{ alignItems: 'center', gap: '16px', marginBottom: '16px' }}>
-        <div>
-          
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginTop: '4px' }}>
-            <span style={{ fontSize: '12px', color: '#6c757d' }}>
-              
-            </span>
+        {isSubzone && (
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <h4 style={{ margin: 0, color: '#6c757d' }}>
+              {zone.name}
+              {parentZoneName && (
+                <span style={{ fontSize: '12px', color: '#adb5bd', marginLeft: '8px' }}>
+                  (Subzone of {parentZoneName})
+                </span>
+              )}
+            </h4>            {onToggleUpdatePolicy && (
+              <PolicyButton 
+                zoneId={zone.zoneId}
+                isActive={updatePolicies[zone.zoneId] ?? true}
+                onClick={onToggleUpdatePolicy}
+              />
+            )}
           </div>
-        </div>
+        )}
         <Button 
           theme="primary small"
           onClick={() => onAddCheckpoint(zone)}
@@ -463,6 +506,7 @@ const ZonesManagementDefinitivo: React.FC = () => {
   const [expandedIndividualVenues, setExpandedIndividualVenues] = useState<{ [zoneId: string]: boolean }>({});
   const [expandedIndividualZones, setExpandedIndividualZones] = useState<{ [zoneId: string]: boolean }>({});
   const [expandedSubzones, setExpandedSubzones] = useState<{ [zoneId: string]: boolean }>({});
+  const [updatePolicies, setUpdatePolicies] = useState<{ [zoneId: string]: boolean }>({});
 
   // ========== HANDLERS CRUD ==========
   // Lógica idéntica al componente original pero sin datos mock iniciales
@@ -618,7 +662,6 @@ const ZonesManagementDefinitivo: React.FC = () => {
     });
     return map;
   }, [subzones]);
-
   // ========== HANDLERS DE UI Y NAVEGACIÓN ==========
   
  
@@ -631,6 +674,15 @@ const ZonesManagementDefinitivo: React.FC = () => {
   const handleAddSubzoneToZone = (parentZone: ZoneType) => {
     setSelectedZone(parentZone);
     setSubzoneDialogOpen(true);
+  };
+
+  // Función para toggle del Update Zone Policy
+  const toggleUpdatePolicy = (zoneId: string, event: React.MouseEvent) => {
+    event.stopPropagation();
+    setUpdatePolicies(prev => ({
+      ...prev,
+      [zoneId]: !prev[zoneId]
+    }));
   };
 
   const handleSubzoneExpansion = (zoneId: string) => {
@@ -712,6 +764,8 @@ const ZonesManagementDefinitivo: React.FC = () => {
     }
   };
 
+  
+
   // ========== RENDER CONDICIONAL ==========
   // Mensaje de carga personalizado para esta versión
   if (loading) {
@@ -745,7 +799,6 @@ const ZonesManagementDefinitivo: React.FC = () => {
       </div>
     );
   }
-
   // ========== RENDER PRINCIPAL ==========
   // Estructura idéntica pero con mejores estados vacíos y mensajes informativos
   return (
@@ -1058,7 +1111,12 @@ const ZonesManagementDefinitivo: React.FC = () => {
                       <h3 style={{ margin: 0, color: '#495057', fontSize: '18px' }}>
                         {gate.name}
                       </h3>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginLeft: 'auto' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginLeft: 'auto' }}>                         <PolicyButton 
+                         zoneId={gate.zoneId}
+                         isActive={updatePolicies[gate.zoneId] ?? true}
+                         onClick={toggleUpdatePolicy}
+                       />
+                        
                         <AccessTypeBadges accessTypes={gate.accessTypes} />
                         <Chip 
                           label={`Capacity: ${gate.maxCapacity}`}
@@ -1067,20 +1125,19 @@ const ZonesManagementDefinitivo: React.FC = () => {
                           color="default"
                           sx={{ fontSize: '0.75rem' }}
                         />
-                       
-                        
-                       
+                      
                       </div>
                     </HorizontalLayout>
                   </AccordionSummary>
                   <AccordionDetails>
                     <Fade in={expandedIndividualGates[gate.zoneId] || false}>
-                      <div style={{ width: '100%' }}>
-                        <ZoneSection
+                      <div style={{ width: '100%' }}>                        <ZoneSection
                           zone={gate}
                           onAddCheckpoint={handleAddCheckpoint}
                           onDeleteCheckpoint={handleDeleteCheckpoint}
                           onUpdateCheckpoint={handleUpdateCheckpoint}
+                          updatePolicies={updatePolicies}
+                          onToggleUpdatePolicy={toggleUpdatePolicy}
                         />
                           {/* Checkpoint Form for this Gate - Inline */}
                         {checkpointDialogOpen && selectedZone?.zoneId === gate.zoneId && eventData && (
@@ -1187,7 +1244,11 @@ const ZonesManagementDefinitivo: React.FC = () => {
                       <h3 style={{ margin: 0, color: '#495057', fontSize: '18px' }}>
                         {venue.name}
                       </h3>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginLeft: 'auto' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginLeft: 'auto' }}>                        <PolicyButton 
+                          zoneId={venue.zoneId}
+                          isActive={updatePolicies[venue.zoneId] ?? true}
+                          onClick={toggleUpdatePolicy}
+                          />
                         <AccessTypeBadges accessTypes={venue.accessTypes} />
                         <Chip 
                           label={`Capacity: ${venue.maxCapacity}`}
@@ -1203,12 +1264,13 @@ const ZonesManagementDefinitivo: React.FC = () => {
                   </AccordionSummary>
                   <AccordionDetails>
                     <Fade in={expandedIndividualVenues[venue.zoneId] || false}>
-                      <div style={{ width: '100%' }}>
-                        <ZoneSection
+                      <div style={{ width: '100%' }}>                        <ZoneSection
                           zone={venue}
                           onAddCheckpoint={handleAddCheckpoint}
                           onDeleteCheckpoint={handleDeleteCheckpoint}
                           onUpdateCheckpoint={handleUpdateCheckpoint}
+                          updatePolicies={updatePolicies}
+                          onToggleUpdatePolicy={toggleUpdatePolicy}
                         />
                           {/* Checkpoint Form for this Venue - Inline */}
                         {checkpointDialogOpen && selectedZone?.zoneId === venue.zoneId && eventData && (
@@ -1269,14 +1331,15 @@ const ZonesManagementDefinitivo: React.FC = () => {
                                 <Fade in={expandedSubzones[venue.zoneId] || false}>
                                   <div style={{ width: '100%' }}>
                                     {subzonesByParent[venue.zoneId].map(subzone => (
-                                      <div key={subzone.zoneId} style={{ marginBottom: '16px' }}>
-                                        <ZoneSection
+                                      <div key={subzone.zoneId} style={{ marginBottom: '16px' }}>                                        <ZoneSection
                                           zone={subzone}
                                           isSubzone
                                           parentZoneName={venue.name}
                                           onAddCheckpoint={handleAddCheckpoint}
                                           onDeleteCheckpoint={handleDeleteCheckpoint}
                                           onUpdateCheckpoint={handleUpdateCheckpoint}
+                                          updatePolicies={updatePolicies}
+                                          onToggleUpdatePolicy={toggleUpdatePolicy}
                                         />
                                         
                                         {/* Checkpoint Form for this Subzone - Inline */}
@@ -1391,7 +1454,11 @@ const ZonesManagementDefinitivo: React.FC = () => {
                       <h3 style={{ margin: 0, color: '#495057', fontSize: '18px' }}>
                         {zone.name}
                       </h3>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginLeft: 'auto' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginLeft: 'auto' }}>                        <PolicyButton 
+                          zoneId={zone.zoneId}
+                          isActive={updatePolicies[zone.zoneId] ?? true}
+                          onClick={toggleUpdatePolicy}
+                        />
                         <AccessTypeBadges accessTypes={zone.accessTypes} />
                         <Chip 
                           label={`Capacity: ${zone.maxCapacity}`}
@@ -1416,12 +1483,13 @@ const ZonesManagementDefinitivo: React.FC = () => {
                   </AccordionSummary>
                   <AccordionDetails>
                     <Fade in={expandedIndividualZones[zone.zoneId] || false}>
-                      <div style={{ width: '100%' }}>
-                        <ZoneSection
+                      <div style={{ width: '100%' }}>                        <ZoneSection
                           zone={zone}
                           onAddCheckpoint={handleAddCheckpoint}
                           onDeleteCheckpoint={handleDeleteCheckpoint}
                           onUpdateCheckpoint={handleUpdateCheckpoint}
+                          updatePolicies={updatePolicies}
+                          onToggleUpdatePolicy={toggleUpdatePolicy}
                         />
                         
                         {/* Checkpoint Form for this Zone - Inline */}
@@ -1479,14 +1547,15 @@ const ZonesManagementDefinitivo: React.FC = () => {
                                 <Fade in={expandedSubzones[zone.zoneId] || false}>
                                   <div style={{ width: '100%' }}>
                                     {subzonesByParent[zone.zoneId].map(subzone => (
-                                      <div key={subzone.zoneId} style={{ marginBottom: '16px' }}>
-                                        <ZoneSection
+                                      <div key={subzone.zoneId} style={{ marginBottom: '16px' }}>                                        <ZoneSection
                                           zone={subzone}
                                           isSubzone
                                           parentZoneName={zone.name}
                                           onAddCheckpoint={handleAddCheckpoint}
                                           onDeleteCheckpoint={handleDeleteCheckpoint}
                                           onUpdateCheckpoint={handleUpdateCheckpoint}
+                                          updatePolicies={updatePolicies}
+                                          onToggleUpdatePolicy={toggleUpdatePolicy}
                                         />
                                         
                                         {/* Checkpoint Form for this Subzone - Inline */}

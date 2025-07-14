@@ -177,9 +177,17 @@ interface AccessTypes {
   GENERAL: boolean;
   BACKSTAGE: boolean;
   STAGE: boolean;
+  COMPROMIS: boolean;  // New access type for special arrangements
   VIP: boolean;
 }
 ```
+
+**Access Type Colors:**
+- `GENERAL`: Orange (#ff9800)
+- `BACKSTAGE`: Green (#4caf50) 
+- `STAGE`: Purple (#9c27b0)
+- `COMPROMIS`: Blue (#2196f3) - New addition
+- `VIP`: Red (#f44336)
 
 #### `Checkpoint`
 ```tsx
@@ -312,9 +320,68 @@ Each zone is rendered as a card with:
 - Header with name and type badge
 - Capacity information
 - Access types display
+- Update Zone Policy button (green/red indicator)
 - Action buttons
 - Checkpoints list
 - Subzones list (if applicable)
+
+### Update Zone Policy Button
+
+The `PolicyButton` component provides visual feedback for automatic capacity update policies:
+
+```tsx
+const PolicyButton = ({ zoneId, isActive, onClick }: { 
+  zoneId: string; 
+  isActive: boolean; 
+  onClick: (zoneId: string, event: React.MouseEvent) => void; 
+}) => (
+  <Box
+    onClick={(event) => onClick(zoneId, event)}
+    sx={{
+      width: 16,
+      height: 16,
+      borderRadius: '50%',
+      backgroundColor: isActive ? '#4caf50' : '#f44336', // Green: Active, Red: Inactive
+      cursor: 'pointer',
+      transition: 'all 0.2s ease',
+      border: '2px solid #ffffff',
+      boxShadow: '0 1px 3px rgba(0,0,0,0.2)',
+      '&:hover': {
+        backgroundColor: isActive ? '#45a049' : '#d32f2f',
+        transform: 'scale(1.1)',
+      },
+    }}
+    title={isActive ? 'Update Zone Policy: ACTIVE' : 'Update Zone Policy: INACTIVE'}
+  />
+);
+```
+
+**Button States:**
+- 🟢 **Green (Active)**: Zone capacity updates automatically from external application
+- 🔴 **Red (Inactive)**: Zone capacity does NOT update automatically
+- **Default**: All zones start with policy ACTIVE (green)
+
+**Usage in Headers:**
+```tsx
+<PolicyButton 
+  zoneId={zone.zoneId}
+  isActive={updatePolicies[zone.zoneId] ?? true}
+  onClick={toggleUpdatePolicy}
+/>
+```
+
+**State Management:**
+```tsx
+const [updatePolicies, setUpdatePolicies] = useState<{ [zoneId: string]: boolean }>({});
+
+const toggleUpdatePolicy = (zoneId: string, event: React.MouseEvent) => {
+  event.stopPropagation(); // Prevent accordion toggle
+  setUpdatePolicies(prev => ({
+    ...prev,
+    [zoneId]: !prev[zoneId]
+  }));
+};
+```
 
 ### Styling Approach
 
