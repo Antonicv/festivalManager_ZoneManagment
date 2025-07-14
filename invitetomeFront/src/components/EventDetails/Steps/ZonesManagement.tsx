@@ -313,8 +313,7 @@ const CheckpointTable = ({
 // Componente de sección de zona con mejores estados vacíos y mensajes informativos
 const ZoneSection = ({
   zone,
-  isSubzone = false,
-  parentZoneName = '',
+ 
   onAddCheckpoint,
   onDeleteCheckpoint,
   onUpdateCheckpoint,
