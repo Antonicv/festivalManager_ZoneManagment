@@ -1,0 +1,44 @@
+{
+    "english": {
+      "logoUrl": "https://www.tailorbrands.com/wp-content/uploads/2021/05/nike-300x300.png",
+      "header": "You're Invited!",
+      "contactName": "John Doe",
+      "contactEmail": "john.doe@example.com",
+      "contactPhone": "+1 555-123-4567",
+      "qrInstruction": "Scan this QR code upon arrival.",
+      "eventName": "Primavera Sound 2025",
+      "eventDate": "May 30, 2025 00:00",
+      "eventLocation": "Parc del Fòrum, Barcelona",
+      "eventDescription": "One of Europe's biggest music festivals...",
+      "footerText1": "This invitation is non-transferable.",
+      "footerText2": " 2025 Invite2Me. All rights reserved."
+    },
+    "spanish": {
+      "logoUrl": "https://www.tailorbrands.com/wp-content/uploads/2021/05/nike-300x300.png",
+      "header": "¡Estás Invitado!",
+      "contactName": "Juan Pérez",
+      "contactEmail": "juan.perez@example.com",
+      "contactPhone": "+34 555-123-4567",
+      "qrInstruction": "Escanea este código QR al llegar.",
+      "eventName": "Primavera Sound 2025",
+      "eventDate": "30 de Mayo, 2025 00:00",
+      "eventLocation": "Parc del Fòrum, Barcelona",
+      "eventDescription": "Uno de los festivales de música más grandes de Europa...",
+      "footerText1": "Esta invitación no es transferible.",
+      "footerText2": " 2025 Invite2Me. Todos los derechos reservados."
+    },
+    "catalan": {
+      "logoUrl": "https://www.tailorbrands.com/wp-content/uploads/2021/05/nike-300x300.png",
+      "header": "Estàs Convidat!",
+      "contactName": "Joan Serra",
+      "contactEmail": "joan.serra@example.com",
+      "contactPhone": "+34 555-123-4567",
+      "qrInstruction": "Escaneja aquest codi QR en arribar.",
+      "eventName": "Primavera Sound 2025",
+      "eventDate": "30 de Maig, 2025 00:00",
+      "eventLocation": "Parc del Fòrum, Barcelona",
+      "eventDescription": "Un dels festivals de música més grans d'Europa...",
+      "footerText1": "Aquesta invitació no és transferible.",
+      "footerText2": " 2025 Invite2Me. Tots els drets reservats."
+    }
+  }
