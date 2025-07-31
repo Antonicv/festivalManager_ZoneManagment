@@ -22,6 +22,7 @@ import {
 import { Box, Typography, Chip } from '@mui/material';
 import { ZoneType, Checkpoint, AccessTypes } from '../types';
 import CheckpointTable from './CheckpointTable';
+import CapacityPolicyChip from './CapacityPolicyChip';
 
 // ========== COMPONENTE ACCESS TYPE BADGES ==========
 const AccessTypeBadges = ({ accessTypes }: { accessTypes: AccessTypes }) => (
@@ -90,38 +91,7 @@ const AccessTypeBadges = ({ accessTypes }: { accessTypes: AccessTypes }) => (
           fontWeight: 600 
         }}
       />
-    )}
-  </HorizontalLayout>
-);
-
-// ========== COMPONENTE POLICY BUTTON ==========
-const PolicyButton = ({ zoneId, isActive, onClick }: { 
-  zoneId: string; 
-  isActive: boolean; 
-  onClick: (zoneId: string, event: React.MouseEvent) => void; 
-}) => (
-  <Box
-    onClick={(event) => onClick(zoneId, event)}
-    sx={{
-      width: 16,
-      height: 16,
-      borderRadius: '50%',
-      backgroundColor: isActive ? '#4caf50' : '#f44336',
-      cursor: 'pointer',
-      transition: 'all 0.2s ease',
-      border: '2px solid #ffffff',
-      boxShadow: '0 1px 3px rgba(0,0,0,0.2)',
-      '&:hover': {
-        backgroundColor: isActive ? '#45a049' : '#d32f2f',
-        transform: 'scale(1.1)',
-        boxShadow: '0 2px 6px rgba(0,0,0,0.3)',
-      },
-      '&:active': {
-        transform: 'scale(0.95)',
-      },
-    }}
-    title={isActive ? 'Update Zone Policy: ACTIVE (Click to disable)' : 'Update Zone Policy: INACTIVE (Click to enable)'}
-  />
+    )}  </HorizontalLayout>
 );
 
 // ========== PROPS INTERFACE ==========
@@ -208,14 +178,16 @@ const ZoneSection: React.FC<ZoneSectionProps> = ({
           </Box>
 
           {/* Access types */}
-          <AccessTypeBadges accessTypes={zone.accessTypes} />
-
-          {/* Policy button */}
+          <AccessTypeBadges accessTypes={zone.accessTypes} />          {/* Policy button */}
           {onToggleUpdatePolicy && (
-            <PolicyButton 
+            <CapacityPolicyChip
+              variant="dot"
               zoneId={zone.zoneId}
+              maxCapacity={zone.maxCapacity}
+              currentOccupancy={zone.currentOccupancy}
               isActive={updatePolicies[zone.zoneId] ?? true}
               onClick={onToggleUpdatePolicy}
+              size="small"
             />
           )}
         </Box>

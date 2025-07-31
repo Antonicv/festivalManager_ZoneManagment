@@ -37,6 +37,7 @@ import {
   NavigateNext,
   Close
 } from '@mui/icons-material';
+import CapacityPolicyChip from './ZonesManagement/components/CapacityPolicyChip';
 
 // ========== PLACEHOLDER PARA ENDPOINT REAL ==========
 // EventItemEndpoint sin datos mock - listo para conectar con backend real
@@ -268,37 +269,7 @@ const AccessTypeBadges = ({ accessTypes }: { accessTypes: AccessTypes }) => (
     )}  </HorizontalLayout>
 );
 
-// Componente del botón de Update Zone Policy
-const PolicyButton = ({ zoneId, isActive, onClick }: { 
-  zoneId: string; 
-  isActive: boolean; 
-  onClick: (zoneId: string, event: React.MouseEvent) => void; 
-}) => (
-  <Box
-    onClick={(event) => onClick(zoneId, event)}
-    sx={{
-      width: 16,
-      height: 16,
-      borderRadius: '50%',
-      backgroundColor: isActive ? '#4caf50' : '#f44336',
-      cursor: 'pointer',
-      transition: 'all 0.2s ease',
-      border: '2px solid #ffffff',
-      boxShadow: '0 1px 3px rgba(0,0,0,0.2)',
-      '&:hover': {
-        backgroundColor: isActive ? '#45a049' : '#d32f2f',
-        transform: 'scale(1.1)',
-        boxShadow: '0 2px 6px rgba(0,0,0,0.3)',
-      },
-      '&:active': {
-        transform: 'scale(0.95)',
-      },
-    }}
-    title={isActive ? 'Update Zone Policy: ACTIVE (Click to disable)' : 'Update Zone Policy: INACTIVE (Click to enable)'}
-  />
-);
-
-// Tabla de checkpoints - idéntica al componente original para consistencia
+// Tabla de checkpoints
 const CheckpointTable = ({
   checkpoints,
   onDelete,
@@ -319,7 +290,7 @@ const CheckpointTable = ({
         entityType={item.type === 'GATE' ? 'gate' : 'zone'}
         onRoleChange={(newRole) => {
           console.log(`Updating checkpoint ${item.name} role from ${item.role} to ${newRole}`);
-          // Aquí se podría implementar la lógica para actualizar el rol en el backend
+          
         }}
       />
     )} />
@@ -373,10 +344,14 @@ const ZoneSection = ({
                 </span>
               )}
             </h4>            {onToggleUpdatePolicy && (
-              <PolicyButton 
+              <CapacityPolicyChip
+                variant="dot"
                 zoneId={zone.zoneId}
+                maxCapacity={zone.maxCapacity}
+                currentOccupancy={zone.currentOccupancy}
                 isActive={updatePolicies[zone.zoneId] ?? true}
                 onClick={onToggleUpdatePolicy}
+                size="small"
               />
             )}
           </div>
@@ -1113,22 +1088,17 @@ const ZonesManagementDefinitivo: React.FC = () => {
                     <HorizontalLayout style={{ alignItems: 'center', gap: '16px', width: '100%' }}>
                       <h3 style={{ margin: 0, color: '#495057', fontSize: '18px' }}>
                         {gate.name}
-                      </h3>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginLeft: 'auto' }}>                         <PolicyButton 
-                         zoneId={gate.zoneId}
-                         isActive={updatePolicies[gate.zoneId] ?? true}
-                         onClick={toggleUpdatePolicy}
-                       />
-                        
+                      </h3>                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginLeft: 'auto' }}>
                         <AccessTypeBadges accessTypes={gate.accessTypes} />
-                        <Chip 
-                          label={`Capacity: ${gate.maxCapacity}`}
+                        <CapacityPolicyChip
+                          variant="dot"
+                          zoneId={gate.zoneId}
+                          maxCapacity={gate.maxCapacity}
+                          currentOccupancy={gate.currentOccupancy}
+                          isActive={updatePolicies[gate.zoneId] ?? true}
+                          onClick={toggleUpdatePolicy}
                           size="small"
-                          variant="outlined"
-                          color="default"
-                          sx={{ fontSize: '0.75rem' }}
                         />
-                      
                       </div>
                     </HorizontalLayout>
                   </AccordionSummary>
@@ -1246,22 +1216,17 @@ const ZonesManagementDefinitivo: React.FC = () => {
                     <HorizontalLayout style={{ alignItems: 'center', gap: '16px', width: '100%' }}>
                       <h3 style={{ margin: 0, color: '#495057', fontSize: '18px' }}>
                         {venue.name}
-                      </h3>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginLeft: 'auto' }}>                        <PolicyButton 
+                      </h3>                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginLeft: 'auto' }}>
+                        <AccessTypeBadges accessTypes={venue.accessTypes} />
+                        <CapacityPolicyChip
+                          variant="dot"
                           zoneId={venue.zoneId}
+                          maxCapacity={venue.maxCapacity}
+                          currentOccupancy={venue.currentOccupancy}
                           isActive={updatePolicies[venue.zoneId] ?? true}
                           onClick={toggleUpdatePolicy}
-                          />
-                        <AccessTypeBadges accessTypes={venue.accessTypes} />
-                        <Chip 
-                          label={`Capacity: ${venue.maxCapacity}`}
                           size="small"
-                          variant="outlined"
-                          color="default"
-                          sx={{ fontSize: '0.75rem' }}
                         />
-                       
-                       
                       </div>
                     </HorizontalLayout>
                   </AccordionSummary>
@@ -1456,19 +1421,16 @@ const ZonesManagementDefinitivo: React.FC = () => {
                     <HorizontalLayout style={{ alignItems: 'center', gap: '16px', width: '100%' }}>
                       <h3 style={{ margin: 0, color: '#495057', fontSize: '18px' }}>
                         {zone.name}
-                      </h3>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginLeft: 'auto' }}>                        <PolicyButton 
+                      </h3>                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginLeft: 'auto' }}>
+                        <AccessTypeBadges accessTypes={zone.accessTypes} />
+                        <CapacityPolicyChip
+                          variant="dot"
                           zoneId={zone.zoneId}
+                          maxCapacity={zone.maxCapacity}
+                          currentOccupancy={zone.currentOccupancy}
                           isActive={updatePolicies[zone.zoneId] ?? true}
                           onClick={toggleUpdatePolicy}
-                        />
-                        <AccessTypeBadges accessTypes={zone.accessTypes} />
-                        <Chip 
-                          label={`Capacity: ${zone.maxCapacity}`}
                           size="small"
-                          variant="outlined"
-                          color="default"
-                          sx={{ fontSize: '0.75rem' }}
                         />
                       
                         <Button 

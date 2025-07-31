@@ -1,0 +1,332 @@
+{
+ "eventId": "EVENT_100",
+ "operation": "zonesDefinition",
+ "data": {
+  "zones": {
+   "zone#00#VENUE": {
+    "accessTypes": {
+     "STAGE-BLUE": true,
+     "STAGE-WHITE": true,
+     "STAGE-GREEN": true,
+     "STAGE-RED": true,
+     "STAGE-VIP": true,
+     "STAGE-TWO": true
+    },
+    "checkPoints": {
+     "checkpoint#Venue#IN": {
+      "name": "Venue Entry",
+      "qrShareLink": "placeholder",
+      "role": "STEWARD-ZONEIN",
+      "shareLink": "placeholder",
+      "type": "IN"
+     },
+     "checkpoint#Venue#OUT": {
+      "name": "Venue Exit",
+      "qrShareLink": "placeholder",
+      "role": "STEWARD-ZONEOUT",
+      "shareLink": "placeholder",
+      "type": "OUT"
+     }
+    },
+    "currentOccupancy": 0,
+    "maxCapacity": 1000,
+    "name": "Venue",
+    "parentZoneId": null,
+    "type": "VENUE",
+    "zoneId": "zone#00#VENUE"
+   },
+   "zone#AA#GATE": {
+    "accessTypes": {
+     "STAGE-BLUE": true,
+     "STAGE-WHITE": true,
+     "STAGE-GREEN": true,
+     "STAGE-RED": true,
+     "STAGE-VIP": true,
+     "STAGE-TWO": true
+    },
+    "checkPoints": {
+     "checkpoint#Main-GATE#IN": {
+      "name": "Main Entry",
+      "qrShareLink": "placeholder",
+      "role": "STEWARD-CHECKIN",
+      "shareLink": "placeholder",
+      "type": "IN"
+     },
+     "checkpoint#Main-GATE#OUT": {
+      "name": "Main Exit",
+      "qrShareLink": "placeholder",
+      "role": "STEWARD-CHECKOUT",
+      "shareLink": "placeholder",
+      "type": "OUT"
+     }
+    },
+    "currentOccupancy": 0,
+    "maxCapacity": 1000,
+    "name": "Main-GATE",
+    "parentZoneId": null,
+    "type": "GATE",
+    "zoneId": "zone#AA#GATE"
+   },
+   "zone#01#BLUE": {
+    "accessTypes": {
+     "STAGE-BLUE": true,
+     "STAGE-WHITE": false,
+     "STAGE-GREEN": false,
+     "STAGE-RED": false,
+     "STAGE-VIP": true,
+     "STAGE-TWO": true
+    },
+    "checkPoints": {
+     "checkpoint#BLUE#IN": {
+      "name": "Blue Backstage Entry",
+      "qrShareLink": "placeholder",
+      "role": "STEWARD-ZONEIN",
+      "shareLink": "placeholder",
+      "type": "IN"
+     },
+     "checkpoint#BLUE#OUT": {
+      "name": "Blue Backstage Exit",
+      "qrShareLink": "placeholder",
+      "role": "STEWARD-ZONEOUT",
+      "shareLink": "placeholder",
+      "type": "OUT"
+     }
+    },
+    "currentOccupancy": 0,
+    "maxCapacity": 300,
+    "name": "BLUE-BACKSTAGE",
+    "parentZoneId": null,
+    "type": "ZONE",
+    "zoneId": "zone#01#BLUE"
+   },
+   "zone#01#01#BLUE#STAGE": {
+    "accessTypes": {
+     "STAGE-BLUE": true,
+     "STAGE-WHITE": false,
+     "STAGE-GREEN": false,
+     "STAGE-RED": false,
+     "STAGE-VIP": true,
+     "STAGE-TWO": true
+    },
+    "checkPoints": {
+     "checkpoint#BLUE-STAGE#IN": {
+      "name": "Blue Stage Entry",
+      "qrShareLink": "placeholder",
+      "role": "STEWARD-ZONEIN",
+      "shareLink": "placeholder",
+      "type": "IN"
+     },
+     "checkpoint#BLUE-STAGE#OUT": {
+      "name": "Blue Stage Exit",
+      "qrShareLink": "placeholder",
+      "role": "STEWARD-ZONEOUT",
+      "shareLink": "placeholder",
+      "type": "OUT"
+     }
+    },
+    "currentOccupancy": 0,
+    "maxCapacity": 150,
+    "name": "BLUE-STAGE",
+    "parentZoneId": "zone#01#BLUE",
+    "parentZoneName": "BLUE-BACKSTAGE",
+    "type": "SUBZONE",
+    "zoneId": "zone#01#01#BLUE#STAGE"
+   },
+   "zone#02#WHITE": {
+    "accessTypes": {
+     "STAGE-BLUE": false,
+     "STAGE-WHITE": true,
+     "STAGE-GREEN": false,
+     "STAGE-RED": false,
+     "STAGE-VIP": true,
+     "STAGE-TWO": false
+    },
+    "checkPoints": {
+     "checkpoint#WHITE#IN": {
+      "name": "White Backstage Entry",
+      "qrShareLink": "placeholder",
+      "role": "STEWARD-ZONEIN",
+      "shareLink": "placeholder",
+      "type": "IN"
+     },
+     "checkpoint#WHITE#OUT": {
+      "name": "White Backstage Exit",
+      "qrShareLink": "placeholder",
+      "role": "STEWARD-ZONEOUT",
+      "shareLink": "placeholder",
+      "type": "OUT"
+     }
+    },
+    "currentOccupancy": 0,
+    "maxCapacity": 300,
+    "name": "WHITE-BACKSTAGE",
+    "parentZoneId": null,
+    "type": "ZONE",
+    "zoneId": "zone#02#WHITE"
+   },
+   "zone#02#01#WHITE#STAGE": {
+    "accessTypes": {
+     "STAGE-BLUE": false,
+     "STAGE-WHITE": true,
+     "STAGE-GREEN": false,
+     "STAGE-RED": false,
+     "STAGE-VIP": true,
+     "STAGE-TWO": false
+    },
+    "checkPoints": {
+     "checkpoint#WHITE-STAGE#IN": {
+      "name": "White Stage Entry",
+      "qrShareLink": "placeholder",
+      "role": "STEWARD-ZONEIN",
+      "shareLink": "placeholder",
+      "type": "IN"
+     },
+     "checkpoint#WHITE-STAGE#OUT": {
+      "name": "White Stage Exit",
+      "qrShareLink": "placeholder",
+      "role": "STEWARD-ZONEOUT",
+      "shareLink": "placeholder",
+      "type": "OUT"
+     }
+    },
+    "currentOccupancy": 0,
+    "maxCapacity": 150,
+    "name": "WHITE-STAGE",
+    "parentZoneId": "zone#02#WHITE",
+    "parentZoneName": "WHITE-BACKSTAGE",
+    "type": "SUBZONE",
+    "zoneId": "zone#02#01#WHITE#STAGE"
+   },
+   "zone#03#GREEN": {
+    "accessTypes": {
+     "STAGE-BLUE": false,
+     "STAGE-WHITE": false,
+     "STAGE-GREEN": true,
+     "STAGE-RED": false,
+     "STAGE-VIP": true,
+     "STAGE-TWO": false
+    },
+    "checkPoints": {
+     "checkpoint#GREEN#IN": {
+      "name": "Green Backstage Entry",
+      "qrShareLink": "placeholder",
+      "role": "STEWARD-ZONEIN",
+      "shareLink": "placeholder",
+      "type": "IN"
+     },
+     "checkpoint#GREEN#OUT": {
+      "name": "Green Backstage Exit",
+      "qrShareLink": "placeholder",
+      "role": "STEWARD-ZONEOUT",
+      "shareLink": "placeholder",
+      "type": "OUT"
+     }
+    },
+    "currentOccupancy": 0,
+    "maxCapacity": 300,
+    "name": "GREEN-BACKSTAGE",
+    "parentZoneId": null,
+    "type": "ZONE",
+    "zoneId": "zone#03#GREEN"
+   },
+   "zone#03#01#GREEN#STAGE": {
+    "accessTypes": {
+     "STAGE-BLUE": false,
+     "STAGE-WHITE": false,
+     "STAGE-GREEN": true,
+     "STAGE-RED": false,
+     "STAGE-VIP": true,
+     "STAGE-TWO": false
+    },
+    "checkPoints": {
+     "checkpoint#GREEN-STAGE#IN": {
+      "name": "Green Stage Entry",
+      "qrShareLink": "placeholder",
+      "role": "STEWARD-ZONEIN",
+      "shareLink": "placeholder",
+      "type": "IN"
+     },
+     "checkpoint#GREEN-STAGE#OUT": {
+      "name": "Green Stage Exit",
+      "qrShareLink": "placeholder",
+      "role": "STEWARD-ZONEOUT",
+      "shareLink": "placeholder",
+      "type": "OUT"
+     }
+    },
+    "currentOccupancy": 0,
+    "maxCapacity": 150,
+    "name": "GREEN-STAGE",
+    "parentZoneId": "zone#03#GREEN",
+    "parentZoneName": "GREEN-BACKSTAGE",
+    "type": "SUBZONE",
+    "zoneId": "zone#03#01#GREEN#STAGE"
+   },
+   "zone#04#RED": {
+    "accessTypes": {
+     "STAGE-BLUE": false,
+     "STAGE-WHITE": false,
+     "STAGE-GREEN": false,
+     "STAGE-RED": true,
+     "STAGE-VIP": true,
+     "STAGE-TWO": true
+    },
+    "checkPoints": {
+     "checkpoint#RED#IN": {
+      "name": "Red Backstage Entry",
+      "qrShareLink": "placeholder",
+      "role": "STEWARD-ZONEIN",
+      "shareLink": "placeholder",
+      "type": "IN"
+     },
+     "checkpoint#RED#OUT": {
+      "name": "Red Backstage Exit",
+      "qrShareLink": "placeholder",
+      "role": "STEWARD-ZONEOUT",
+      "shareLink": "placeholder",
+      "type": "OUT"
+     }
+    },
+    "currentOccupancy": 0,
+    "maxCapacity": 300,
+    "name": "RED-BACKSTAGE",
+    "parentZoneId": null,
+    "type": "ZONE",
+    "zoneId": "zone#04#RED"
+   },
+   "zone#04#01#RED#STAGE": {
+    "accessTypes": {
+     "STAGE-BLUE": false,
+     "STAGE-WHITE": false,
+     "STAGE-GREEN": false,
+     "STAGE-RED": true,
+     "STAGE-VIP": true,
+     "STAGE-TWO": true
+    },
+    "checkPoints": {
+     "checkpoint#RED-STAGE#IN": {
+      "name": "Red Stage Entry",
+      "qrShareLink": "placeholder",
+      "role": "STEWARD-ZONEIN",
+      "shareLink": "placeholder",
+      "type": "IN"
+     },
+     "checkpoint#RED-STAGE#OUT": {
+      "name": "Red Stage Exit",
+      "qrShareLink": "placeholder",
+      "role": "STEWARD-ZONEOUT",
+      "shareLink": "placeholder",
+      "type": "OUT"
+     }
+    },
+    "currentOccupancy": 0,
+    "maxCapacity": 150,
+    "name": "RED-STAGE",
+    "parentZoneId": "zone#04#RED",
+    "parentZoneName": "RED-BACKSTAGE",
+    "type": "SUBZONE",
+    "zoneId": "zone#04#01#RED#STAGE"
+   }
+  }
+ }
+}

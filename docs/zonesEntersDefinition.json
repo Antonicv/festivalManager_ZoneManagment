@@ -1,0 +1,83 @@
+{
+ "eventId": "EVENT_100",
+ "operation": "zonesEntersDefinition",
+ "contacts": [
+  {
+   "email": "test@fest2.fun"
+  },
+  {
+   "email": "bluebackstagein@fest2.fun"
+  },
+  {
+   "email": "whitebackstagein@fest2.fun"
+  },
+  {
+   "email": "greenbackstagein@fest2.fun"
+  },
+  {
+   "email": "redbackstagein@fest2.fun"
+  }
+ ],
+ "data": {
+  "zone#00#VENUE": {
+   "enterPermission": true,
+   "maxCapacity": 1000,
+   "name": "Venue",
+   "type": "VENUE"
+  },
+  "zone#AA#GATE": {
+   "enterPermission": true,
+   "maxCapacity": 1000,
+   "name": "Main-GATE",
+   "type": "GATE"
+  },
+  "zone#01#BLUE": {
+   "enterPermission": true,
+   "maxCapacity": 300,
+   "name": "BLUE-BACKSTAGE",
+   "type": "ZONE"
+  },
+  "zone#01#01#BLUE#STAGE": {
+   "enterPermission": false,
+   "maxCapacity": 150,
+   "name": "BLUE-STAGE",
+   "type": "SUBZONE"
+  },
+  "zone#02#WHITE": {
+   "enterPermission": true,
+   "maxCapacity": 300,
+   "name": "WHITE-BACKSTAGE",
+   "type": "ZONE"
+  },
+  "zone#02#01#WHITE#STAGE": {
+   "enterPermission": false,
+   "maxCapacity": 150,
+   "name": "WHITE-STAGE",
+   "type": "SUBZONE"
+  },
+  "zone#03#GREEN": {
+   "enterPermission": true,
+   "maxCapacity": 300,
+   "name": "GREEN-BACKSTAGE",
+   "type": "ZONE"
+  },
+  "zone#03#01#GREEN#STAGE": {
+   "enterPermission": false,
+   "maxCapacity": 150,
+   "name": "GREEN-STAGE",
+   "type": "SUBZONE"
+  },
+  "zone#04#RED": {
+   "enterPermission": true,
+   "maxCapacity": 300,
+   "name": "RED-BACKSTAGE",
+   "type": "ZONE"
+  },
+  "zone#04#01#RED#STAGE": {
+   "enterPermission": false,
+   "maxCapacity": 150,
+   "name": "RED-STAGE",
+   "type": "SUBZONE"
+  }
+ }
+}
