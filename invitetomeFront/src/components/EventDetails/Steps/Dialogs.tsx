@@ -141,24 +141,27 @@ const Dialogs = ({
   const [checkpointDeviceRole, setCheckpointDeviceRole] = useState('');
   // Subzone Dialog State
   const [subzoneName, setSubzoneName] = useState('');
-  const [subzoneMaxCapacity, setSubzoneMaxCapacity] = useState(100);
-  const [subzoneGeneralAccess, setSubzoneGeneralAccess] = useState(false);
+  const [subzoneMaxCapacity, setSubzoneMaxCapacity] = useState(100);  const [subzoneGeneralAccess, setSubzoneGeneralAccess] = useState(false);
   const [subzoneBackstageAccess, setSubzoneBackstageAccess] = useState(false);
   const [subzoneStageAccess, setSubzoneStageAccess] = useState(false);
   const [subzoneCompromisAccess, setSubzoneCompromisAccess] = useState(false);
+  
+  // VIP Access State Variables
+  const [zoneVipAccess, setZoneVipAccess] = useState(false);
+  const [subzoneVipAccess, setSubzoneVipAccess] = useState(false);
 
   const resetGateForm = () => {
     setGateName('');
     setGateDeviceId('');
     setGateDeviceRole('');
-  };
-  const resetZoneForm = () => {
+  };  const resetZoneForm = () => {
     setZoneName('');
     setZoneMaxCapacity(100);
     setZoneGeneralAccess(false);
     setZoneBackstageAccess(false);
     setZoneStageAccess(false);
     setZoneCompromisAccess(false);
+    setZoneVipAccess(false);
   };
 
   const resetCheckpointForm = () => {
@@ -166,14 +169,14 @@ const Dialogs = ({
     setCheckpointType('IN');
     setCheckpointDeviceId('');
     setCheckpointDeviceRole('');
-  };
-  const resetSubzoneForm = () => {
+  };  const resetSubzoneForm = () => {
     setSubzoneName('');
     setSubzoneMaxCapacity(100);
     setSubzoneGeneralAccess(false);
     setSubzoneBackstageAccess(false);
     setSubzoneStageAccess(false);
     setSubzoneCompromisAccess(false);
+    setSubzoneVipAccess(false);
   };
 
   const handleAddGate = () => {
@@ -212,8 +215,7 @@ const Dialogs = ({
     });
     setGateDialogOpen(false);
     resetGateForm();
-  };
-  const handleAddZone = () => {
+  };  const handleAddZone = () => {
     const newZone: Zone = {
       zoneId: `zone#${Date.now()}`,
       name: zoneName,
@@ -227,7 +229,7 @@ const Dialogs = ({
         BACKSTAGE: zoneBackstageAccess,
         STAGE: zoneStageAccess,
         COMPROMIS: zoneCompromisAccess,
-        VIP: false,
+        VIP: zoneVipAccess,
       },
     };
 
@@ -240,8 +242,7 @@ const Dialogs = ({
     });
     setZoneDialogOpen(false);
     resetZoneForm();
-  };
-  const handleAddVenue = () => {
+  };  const handleAddVenue = () => {
     const newVenue: Zone = {
       zoneId: `venue#${Date.now()}`,
       name: zoneName,
@@ -255,7 +256,7 @@ const Dialogs = ({
         BACKSTAGE: zoneBackstageAccess,
         STAGE: zoneStageAccess,
         COMPROMIS: zoneCompromisAccess,
-        VIP: false,
+        VIP: zoneVipAccess,
       },
     };
 
@@ -298,7 +299,6 @@ const Dialogs = ({
     setCheckpointDialogOpen(false);
     resetCheckpointForm();
   };
-
   const handleAddSubzone = () => {
     if (!selectedZone) return;
 
@@ -315,7 +315,7 @@ const Dialogs = ({
         BACKSTAGE: subzoneBackstageAccess,
         STAGE: subzoneStageAccess,
         COMPROMIS: subzoneCompromisAccess,
-        VIP: false,
+        VIP: subzoneVipAccess,
       },
     };
 
@@ -415,6 +415,11 @@ const Dialogs = ({
                   checked={zoneCompromisAccess}
                   onCheckedChanged={(e: any) => setZoneCompromisAccess(e.detail.value)}
                 />
+                <Checkbox
+                  label="VIP"
+                  checked={zoneVipAccess}
+                  onCheckedChanged={(e: any) => setZoneVipAccess(e.detail.value)}
+                />
               </div>
             </div>
             <HorizontalLayout theme="spacing" style={{ marginTop: '16px' }}>
@@ -465,11 +470,15 @@ const Dialogs = ({
                   label="STAGE"
                   checked={zoneStageAccess}
                   onCheckedChanged={(e: any) => setZoneStageAccess(e.detail.value)}
-                />
-                <Checkbox
+                />                <Checkbox
                   label="COMPROMIS"
                   checked={zoneCompromisAccess}
                   onCheckedChanged={(e: any) => setZoneCompromisAccess(e.detail.value)}
+                />
+                <Checkbox
+                  label="VIP"
+                  checked={zoneVipAccess}
+                  onCheckedChanged={(e: any) => setZoneVipAccess(e.detail.value)}
                 />
               </div>
             </div>
@@ -575,6 +584,11 @@ const Dialogs = ({
                   label="COMPROMIS"
                   checked={subzoneCompromisAccess}
                   onCheckedChanged={(e: any) => setSubzoneCompromisAccess(e.detail.value)}
+                />
+                <Checkbox
+                  label="VIP"
+                  checked={subzoneVipAccess}
+                  onCheckedChanged={(e: any) => setSubzoneVipAccess(e.detail.value)}
                 />
               </div>
             </div>
